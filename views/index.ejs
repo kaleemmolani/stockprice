@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+<body>
+  <h1>Stock Price List</h1>
+  <p id="price"></p>
+  <button id="refreshStockPRoce">Refresh</button>
+</body>
+
+<script>
+  const price = document.getElementById('price');
+  const refreshButton = document.getElementById('refreshStockPRoce');
+const priceUpdate = ()=>{
+  fetch('/stock').then(r=>r.json()).then(result=>{
+    price.innerHTML = `<h1>Facebook stock price:${result[0].price}</h1>`
+    console.log(result[0].price)
+  });
+}
+priceUpdate();
+  refreshButton.addEventListener('click',priceUpdate)
+  setInterval(priceUpdate,10000*60)
+</script>
+</html>
